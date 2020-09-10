@@ -27,10 +27,10 @@ sleep 10
 figlet -w 200 -f small "Verify Deployment"
 aws lambda list-functions --region "us-east-1"
 
-#vault login -address=$VAULT_ADDRESS $VAULT_TOKEN > /dev/null
+vault login -address=$VAULT_ADDRESS $VAULT_TOKEN > /dev/null
 
-#export SPARK_DNS_NAME=$(echo `cat ../../iac/terraform/awsqa_swarm/.spark_swarm_manager_dns`)
-#vault kv put -address=$VAULT_ADDRESS ENVIRONMENTS/$ENVIRONMENT/SPARK/ address=$SPARK_DNS_NAME > /dev/null
-#echo "SPARK_DNS_NAME is "$SPARK_DNS_NAME
+export ZIPSTER_URL=$(echo `cat ../../iac/terraform/awsqa_lambda/.zipster_url`)
+vault kv put -address=$VAULT_ADDRESS ENVIRONMENTS/$ENVIRONMENT/ZIPSTER_URL/ address=$ZIPSTER_URL > /dev/null
+echo "ZIPSTER_URL is "$ZIPSTER_URL
 
-#rm -rf .vault_howardeiner
+rm -rf .vault_howardeiner
