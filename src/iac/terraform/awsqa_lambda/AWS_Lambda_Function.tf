@@ -1,12 +1,12 @@
 resource "aws_lambda_function" "awsqa_lambda_lambda_function" {
   runtime       = var.lambda_runtime
-#  environment {
-#    variables = {
-#      VAULT_ADDRESS = "MY_VAULT_ADDRESS"
-#      VAULT_TOKEN = "MY_VAULT_TOKEN"
-#      ENVIRONMENT = var.environment
-#    }
-#  }
+  environment {
+    variables = {
+      VAULT_ADDRESS = format("http://%s:8200",trimspace(file("../vault/.vault_dns")))
+      VAULT_TOKEN = trimspace(file("../../../scripts/runAWS/.vault_howardeiner/root_token"))
+      ENVIRONMENT = var.environment
+    }
+  }
   filename      = var.lambda_payload_filename
   source_code_hash = filebase64sha256(var.lambda_payload_filename)
   function_name = "zipster"

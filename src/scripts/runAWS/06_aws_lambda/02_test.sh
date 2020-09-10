@@ -18,8 +18,8 @@ figlet -w 200 -f standard "Test in AWS-QA-LAMBDA Environment"
 #
 #rm -rf .vault_howardeiner
 
-#TEST_COMMAND="curl "`cat ../../iac/terraform/awsqa_lambda/.api_url`" -d '{\"radius\":\"2.0\",\"zipcode\":\"07440\"}'"
-TEST_COMMAND="curl "`cat ../../iac/terraform/awsqa_lambda/.api_url`" -H 'Cache-Control: no-cache' -H 'Content-Type: application/json' -H 'x-api-key: *****************************' -d '{\"zipcode\":\"07440\",\"radius\":\"2.0\"}'"
+#TEST_COMMAND="curl "`cat ../../iac/terraform/awsqa_lambda/.zipster_url`" -d '{\"radius\":\"2.0\",\"zipcode\":\"07440\"}'"
+TEST_COMMAND="curl "`cat ../../iac/terraform/awsqa_lambda/.zipster_url`" -H 'Cache-Control: no-cache' -H 'Content-Type: application/json' -H 'x-api-key: *****************************' -d '{\"zipcode\":\"07440\",\"radius\":\"2.0\"}'"
 echo $TEST_COMMAND
 eval $TEST_COMMAND
 #curl https://0aslp8bygg.execute-api.us-east-1.amazonaws.com/reference_implementation/zipster -H 'Cache-Control: no-cache' -H 'Content-Type: application/json' -H 'x-api-key: *****************************'  -d '{ "requestMessage": "Sidath"}'

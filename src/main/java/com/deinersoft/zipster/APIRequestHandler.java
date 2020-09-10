@@ -9,8 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+
 public class APIRequestHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent apiGatewayProxyRequestEvent, Context context) {
         System.out.println("APIGatewayProxyResponseEvent START");
@@ -18,6 +17,7 @@ public class APIRequestHandler implements RequestHandler<APIGatewayProxyRequestE
         System.out.println("context="+context.toString());
         LambdaLogger logger = context.getLogger();
         APIGatewayProxyResponseEvent apiGatewayProxyResponseEvent = new APIGatewayProxyResponseEvent();
+        org.json.JSONObject responseBody = new org.json.JSONObject();
         try {
             String requestString = apiGatewayProxyRequestEvent.getBody();
             System.out.println("requestString="+requestString);
@@ -26,8 +26,7 @@ public class APIRequestHandler implements RequestHandler<APIGatewayProxyRequestE
             JSONObject requestJsonObject = (JSONObject) parser.parse(requestString);
             System.out.println("requestJsonObject="+requestJsonObject.toString());
             logger.log("requestJsonObject="+requestJsonObject.toString());
-            String requestMessage = null;
-            String responseMessage = null;
+
             String zipcode = "";
             String radius = "";
             if (requestJsonObject != null) {
@@ -38,12 +37,15 @@ public class APIRequestHandler implements RequestHandler<APIGatewayProxyRequestE
                     radius = requestJsonObject.get("radius").toString();
                 }
             }
-            Map<String, String> responseBody = new HashMap<String, String>();
-            responseBody.put("ourprocessedreturn", "answer for zipcode="+zipcode+" and radius="+radius);
-            responseMessage = new JSONObject(responseBody).toJSONString();
-            generateResponse(apiGatewayProxyResponseEvent, responseMessage);
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+            Zipster zipster = new Zipster(zipcode, radius);
+            responseBody = zipster.getPostOfficesWithinRadius();
+            generateResponse(apiGatewayProxyResponseEvent, responseBody.toString(4));
+        } catch (Exception e) {
+            responseBody.put("exception",e.getMessage());
+            apiGatewayProxyResponseEvent.setHeaders(Collections.singletonMap("timeStamp", String.valueOf(System.currentTimeMillis())));
+            apiGatewayProxyResponseEvent.setStatusCode(500);
+            apiGatewayProxyResponseEvent.setBody(responseBody.toString(4));
         }
         return apiGatewayProxyResponseEvent;
     }

@@ -1,5 +1,5 @@
 resource "aws_instance" "awsqa_lambda_mysql" {
-  count           = 0
+  count           = 1
   ami             = "ami-759bc50a"
   instance_type   = "t2.small"
   key_name        = aws_key_pair.awsqa_lambda_key_pair.key_name

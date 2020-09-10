@@ -20,12 +20,11 @@ export ENVIRONMENT=AWS-QA-LAMBDA
 #    vault kv delete -address=$VAULT_ADDRESS ENVIRONMENTS/AWS-QA-SWARM/${path};
 #  done
 #
-#rm -rf .vault_howardeiner/root_token
 
 figlet -w 200 -f small "UnTerraform AWS-QA-LAMBDA"
 cd ../../iac/terraform/awsqa_lambda
 terraform destroy -var environment=AWS-QA-LAMBDA -auto-approve
-rm -rf .environment .mysql_dns .api_url
+rm -rf .environment .mysql_dns .zipster_url
 cd -
 
 cd ../../../
