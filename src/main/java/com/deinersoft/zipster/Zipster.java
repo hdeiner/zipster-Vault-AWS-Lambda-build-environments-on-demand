@@ -29,44 +29,6 @@ public class Zipster {
             resultSet.put("radius", radius);
             resultSet.put("zipcode", zipcode);
 
-//            if (false) {
-//
-//                resultSet.put("vault_address",System.getenv("VAULT_ADDRESS"));
-//                resultSet.put("vault_token",System.getenv("VAULT_TOKEN"));
-//                resultSet.put("environment",System.getenv("ENVIRONMENT"));
-//
-//                JSONObject row1 = new JSONObject();
-//                row1.put("zipcode", "a_zipcode");
-//                row1.put("zipcode_type", "a_zipcode_type");
-//                row1.put("city", "a_city");
-//                row1.put("state", "a_state");
-//                row1.put("location_type", "a_location_type");
-//                row1.put("latitude", "a_latitude");
-//                row1.put("longitude", "a_longitude");
-//                row1.put("location", "a_location");
-//                row1.put("decomissioned", "a_decomissioned");
-//                row1.put("distance", "a_distance");
-//                resultSet.append("results", row1);
-//
-//                JSONObject row2 = new JSONObject();
-//                row2.put("zipcode", "b_zipcode");
-//                row2.put("zipcode_type", "b_zipcode_type");
-//                row2.put("city", "b_city");
-//                row2.put("state", "b_state");
-//                row2.put("location_type", "b_location_type");
-//                row2.put("latitude", "b_latitude");
-//                row2.put("longitude", "b_longitude");
-//                row2.put("location", "b_location");
-//                row2.put("decomissioned", "b_decomissioned");
-//                row2.put("distance", "b_distance");
-//                resultSet.append("results", row2);
-//
-//                return resultSet;
-//            }
-
-//            resultSet.put("VAULT_ADDRESS",System.getenv("VAULT_ADDRESS"));
-//            resultSet.put("VAULT_TOKEN",System.getenv("VAULT_TOKEN"));
-//            resultSet.put("ENVIRONMENT",System.getenv("ENVIRONMENT"));
             System.out.println("VAULT_ADDRESS=" + System.getenv("VAULT_ADDRESS"));
             System.out.println("VAULT_TOKEN=" + System.getenv("VAULT_TOKEN"));
             System.out.println("ENVIRONMENT=" + System.getenv("ENVIRONMENT"));
