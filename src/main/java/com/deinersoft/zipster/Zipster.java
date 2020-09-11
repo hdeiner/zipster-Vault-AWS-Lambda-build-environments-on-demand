@@ -4,6 +4,7 @@ import com.bettercloud.vault.Vault;
 import com.bettercloud.vault.VaultConfig;
 import com.bettercloud.vault.VaultException;
 import org.json.JSONObject;
+import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -51,7 +52,9 @@ public class Zipster {
                 dbURL = "jdbc:mysql://" + address + ":" + port + "/zipster?useSSL=false";
                 System.out.println("dbURL=" + dbURL);
             } catch (VaultException e) {
-                e.printStackTrace();
+                resultSet.put("Exception Root Cause",ExceptionUtils.getRootCause(e).getMessage());
+                resultSet.put("Exception StackTrace",ExceptionUtils.getStackTrace(e));
+                return resultSet;
             }
 
             try {
@@ -89,11 +92,15 @@ public class Zipster {
                 }
                 conn.close();
             } catch (Exception e) {
-                resultSet.put("Got an exception!", e.getMessage());
+                resultSet.put("Exception Root Cause",ExceptionUtils.getRootCause(e).getMessage());
+                resultSet.put("Exception StackTrace",ExceptionUtils.getStackTrace(e));
+                return resultSet;
             }
         }
         catch (Exception e) {
-            resultSet.put("Got an exception!", e.getMessage());
+            resultSet.put("Exception Root Cause",ExceptionUtils.getRootCause(e).getMessage());
+            resultSet.put("Exception StackTrace",ExceptionUtils.getStackTrace(e));
+            return resultSet;
         }
 
         return resultSet;
